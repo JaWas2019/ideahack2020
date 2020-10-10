@@ -3,3 +3,7 @@
 ideahack.code-workspace
 backend_jan/Data/relation_matrix.pkl
 backend_jan/Data/employee_skill_matrix.pkl
+backend_jan/Andromeda_flask/connection.py
+backend_jan/employeeskillmatrix.pkl
+backend_jan/relationmatrix.pkl
+backend_jan/Andromeda_flask/__pycache__/connection.cpython-39.pyc
