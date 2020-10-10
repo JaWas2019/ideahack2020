@@ -1,6 +1,8 @@
 #%%
 import pandas as pd
 import numpy as np
+import csv
+import json
 
 #%%
 # load required data and strip unnecessary columns
@@ -28,14 +30,18 @@ pd.to_pickle(skills_df, "./Data/skills.pkl")
 pd.to_pickle(relations_df, "./Data/relations.pkl")
 
 # %%
+# testing only
 #occupations_df_test = occupations_df.head(10)
 #occupation_codes = occupations_df_test["conceptUri"]
+
 # %%
 # extract occupation codes to use as index for matrix
 occupation_codes = occupations_df["conceptUri"]
+
 # %%
 # initialize new relations matrix
 relation_matrix = pd.DataFrame(index=occupation_codes)
+
 # %%
 # TESTING ONLY
 # Loop over occupations, query for required skills and set key-pair to 1
@@ -51,4 +57,54 @@ relation_matrix = pd.DataFrame(index=occupation_codes)
 # loops through relations to create a matrix (let's pray it doesn't take up way too much space)
 for index, row in relations_df.iterrows():
     relation_matrix.at[row["occupationUri"], row["skillUri"]] = 1
+
+# %%
+# Hallelujah! It finished! Quick, save it!
+relation_matrix = relation_matrix.fillna(0)
+pd.to_pickle(relation_matrix, "./Data/relation_matrix.pkl")
+
+#%%
+relation_matrix = pd.read_pickle("./Data/relation_matrix.pkl")
+
+#%%
+skill_profiles = pd.read_csv("./Data/skill_profiles.csv", error_bad_lines=False, delimiter="\t", index_col=0)
+
+for index, row in skill_profiles.iterrows():
+    skills_to_fix = row["skills"]
+    skills_to_fix = skills_to_fix.strip('][').split("\", \"")
+    fixed_skills = []
+    # I am not sure if this is even necessary anymore because I escaped the "" in the split now, but it's fast, so it stays.
+    for skill in skills_to_fix:
+        fixed_skills.append(skill.strip("\""))
+    skill_profiles.iat[index, 1] = fixed_skills
+# %%
+skill_list = list(relation_matrix.columns)
+employee_list = list (skill_profiles["name"])
+
+
+# %%
+skill_matrix = pd.DataFrame(index=employee_list, columns=skill_list)
+
+#%%
+skill_lookup = dict(zip(skills_df.preferredLabel, skills_df.conceptUri))
+with open ("./Data/skill_lookup.json", "w") as write_file:
+    json.dump(skill_lookup, write_file)
+
+
+# %%
+for index, employee_data in skill_profiles.iterrows():
+    for skill in employee_data["skills"]:
+        skill_matrix.at[employee_data["name"], skill_lookup[skill]] = 1
+
+#%%
+# For some reason, the employee skill matrix has more skills then the relation matrix
+# There is probably due to faulty data
+# To fix this, we can compare the columns and drop all skills which are not present in the skill matrix from the employee one.
+
+to_be_dropped = list(skill_matrix.columns.difference(relation_matrix.columns))
+skill_matrix = skill_matrix.drop(to_be_dropped, axis=1)
+
+# %%
+skill_matrix = skill_matrix.fillna(0)
+pd.to_pickle(skill_matrix, "./Data/employee_skill_matrix.pkl")
 # %%

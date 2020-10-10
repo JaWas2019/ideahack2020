@@ -1,3 +1,5 @@
 .vscode
 .venv
 ideahack.code-workspace
+backend_jan/Data/relation_matrix.pkl
+backend_jan/Data/employee_skill_matrix.pkl
