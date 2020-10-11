@@ -1,0 +1,95 @@
+body {
+	margin: 0;
+	padding: 0;
+  background-color: lightgray;
+}
+
+ .App {
+  text-align: center;
+  font-family: monospace;
+}
+
+.App-logo {
+  height: 180px;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.Browse-jobs-employee {
+  align-items: center;
+  justify-content: space-around;
+  text-align: center;
+
+}
+
+.Job-advert {
+
+  height: 180px;
+  width: 800px;
+  border: #282c34;
+  background: rgb(255, 255, 255);
+
+
+}
+
+.Employee-advert .centered-element{
+  height: 60px;
+  width: 350px;
+  background: #FBFBFD
+
+}
+
+.Browse-jobs-employee {
+  justify-content: space-around;
+  display: flex;
+  flex-wrap: wrap;
+  margin: -0.5rem;
+  align-items: stretch;
+}
+
+.Side-bar {
+  flex-basis: 20rem;
+  flex-grow: 1;
+  background: #F3F5FF;
+  align-items: center;
+}
+
+.Jobs {
+  margin-left: 100px;
+  justify-content: space-around;
+  flex-basis: 0;
+  flex-grow: 999;
+  min-width: calc(50% - 1rem);
+}
+
+
+
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

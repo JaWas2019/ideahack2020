@@ -1,0 +1,25 @@
+{
+  "name": "esbuild-reactjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "esbuild": "^0.5.14",
+    "material-ui-toggle-icon": "^1.1.1",
+    "node.js": "0.0.1-security",
+    "public": "^0.1.5",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
+    "static-here": "^1.0.0"
+  }
+}
